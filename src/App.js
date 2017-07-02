@@ -117,7 +117,7 @@ class ResultDisplay extends Component {
         <tr>
           <td>{i.name}</td>
           <td>{i.owner.login}</td>
-          <td>{i.html_url}</td>
+          <td><a href={i.html_url}>Link</a></td>
           <td>{i.stargazers_count}</td>
         </tr>
       );
@@ -163,7 +163,7 @@ class WatchDisplay extends Component {
         <tr>
           <td>{i.name}</td>
           <td>{i.owner.login}</td>
-          <td>{i.html_url}</td>
+          <td><a href={i.html_url}>Link</a></td>
           <td>{i.stargazers_count}</td>
         </tr>
       );
