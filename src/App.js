@@ -82,14 +82,36 @@ class App extends Component {
   }
 }
 
+var resultDisplay;
+
 class TestForm extends Component {
   send (e) {
     e.preventDefault();
     var testValue = ReactDOM.findDOMNode(this.refs.text_value).value.trim();
-    TestAction.test(testValue);
-    console.log(testValue);
+    // TestAction.test(testValue);
+    // console.log(testValue);
+    var url = "https://api.github.com/search/repositories?q=" + testValue;
+    var data = this.getJson(url);
     ReactDOM.findDOMNode(this.refs.text_value).value = "";
     return;
+  }
+  getJson (url) {
+    var xmlhttp = new XMLHttpRequest();
+    var data;
+     xmlhttp.onreadystatechange = function () {
+       if (xmlhttp.readyState == 4) {
+         if (xmlhttp.status == 200) {
+           data = JSON.parse(xmlhttp.responseText);
+           alert(data.total_count);
+           resultDisplay.updateState(data.total_count,data.items);
+           return data;
+         } else {
+         }
+       }
+     }
+     xmlhttp.open("GET", url,true);
+     xmlhttp.send();
+     
   }
   render () {
     return (
@@ -103,6 +125,7 @@ class TestForm extends Component {
 class ResultDisplay extends Component {
   constructor () {
     super();
+    resultDisplay = this;
     this.state = {
       numOfResult: null,
       repositories: [] //jsonData.items
@@ -114,11 +137,11 @@ class ResultDisplay extends Component {
     var list = [];
     for(var i in this.state.repositories){
       list.push(
-        <tr>
-          <td>{i.name}</td>
-          <td>{i.owner.login}</td>
-          <td><a href={i.html_url}>Link</a></td>
-          <td>{i.stargazers_count}</td>
+        <tr class="tableChildren">
+          <td>{this.state.repositories[i].name}</td>
+          <td>{this.state.repositories[i].owner.login}</td>
+          <td><a href={this.state.repositories[i].html_url}>Link</a></td>
+          <td>{this.state.repositories[i].stargazers_count}</td>
         </tr>
       );
     }
@@ -142,7 +165,10 @@ class ResultDisplay extends Component {
     );
   }
   updateState (numOfResult,items) {
-    this.setState(numOfResult,items);
+    this.setState({
+      numOfResult:numOfResult,
+      repositories:items
+    });
   }
 }
 
