@@ -104,8 +104,10 @@ class ResultDisplay extends Component {
   constructor () {
     super();
     this.state = {
-      numOfResult: null
+      numOfResult: null,
+      repositories: []
     };
+    this.updateState = this.updateState.bind(this);
   }
   render () {
     var message = this.state.numOfResult?(this.state.numOfResult==0?"No repository found...":this.state.numOfResult+" repository found!"):"Input keyword and click \"Search\"";
@@ -113,15 +115,37 @@ class ResultDisplay extends Component {
       <div>
         <p>{message}</p>
         <table id="Results">
-          <tr>
-            <th>Repository Name</th>
-            <th>Owner's Name</th>
-            <th>Link</th>
-            <th>Stars</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Repository Name</th>
+              <th>Owner's Name</th>
+              <th>Link</th>
+              <th>Stars</th>
+            </tr>
+          </thead>
+          <tbody>
+            {setRow()}
+          </tbody>
         </table>
       </div>
     );
+  }
+  setRow () {
+    var list = [];
+    for(var i in this.state.repositories){
+      list.push(
+        <tr>
+          <td>{i.name}</td>
+          <td>{i.owner.login}</td>
+          <td>{i.html_url}</td>
+          <td>{i.stargazers_count}</td>
+        </tr>
+      );
+    }
+    return ({list});
+  }
+  updateState (numOfResult,items) {
+    this.setState(numOfResult,items);
   }
 }
 
@@ -138,15 +162,37 @@ class WatchDisplay extends Component {
       <div>
         <p>{message}</p>
         <table id="Watch">
-          <tr>
-            <th>Repository Name</th>
-            <th>Owner's Name</th>
-            <th>Link</th>
-            <th>Stars</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Repository Name</th>
+              <th>Owner's Name</th>
+              <th>Link</th>
+              <th>Stars</th>
+            </tr>
+          </thead>
+          <tbody>
+            {setRow()}
+          </tbody>
         </table>
       </div>
     )
+  }
+  setRow () {
+    var list = [];
+    for(var i in this.state.repositories){
+      list.push(
+        <tr>
+          <td>{i.name}</td>
+          <td>{i.owner.login}</td>
+          <td>{i.html_url}</td>
+          <td>{i.stargazers_count}</td>
+        </tr>
+      );
+    }
+    return ({list});
+  }
+  updateState (numOfResult,items) {
+    this.setState(numOfResult,items);
   }
 }
 
