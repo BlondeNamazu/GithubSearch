@@ -63,9 +63,20 @@ class App extends Component {
   }
   render () {
     return (
-      <div className="testApp">
-        <TestForm />
-        <TestDisplay data={this.state.value} />
+      <div>
+        <div id="formParent">
+          <div id="form">
+            <TestForm />
+          </div>
+        </div>
+        <div id="parent">
+          <div id="leftChild">
+            <ResultDisplay data={this.state.value} />
+          </div>
+          <div id="rightChild">
+            <WatchDisplay/>
+          </div>
+        </div>
       </div>
     );
   }
@@ -84,17 +95,58 @@ class TestForm extends Component {
     return (
       <form>
         <input type="text" ref="text_value" />
-        <button onClick={this.send.bind(this)}>送信</button>
+        <button onClick={this.send.bind(this)}>Search</button>
       </form>
     );
   }
 }
-class TestDisplay extends Component {
+class ResultDisplay extends Component {
+  constructor () {
+    super();
+    this.state = {
+      numOfResult: null
+    };
+  }
   render () {
-    var message = this.props.data;
+    var message = this.state.numOfResult?(this.state.numOfResult==0?"No repository found...":this.state.numOfResult+" repository found!"):"Input keyword and click \"Search\"";
     return (
-      <div>{message}</div>
+      <div>
+        <p>{message}</p>
+        <table id="Results">
+          <tr>
+            <th>Repository Name</th>
+            <th>Owner's Name</th>
+            <th>Link</th>
+            <th>Stars</th>
+          </tr>
+        </table>
+      </div>
     );
+  }
+}
+
+class WatchDisplay extends Component {
+  constructor () {
+    super();
+    this.state = {
+      watchlist: []
+    };
+  }
+  render () {
+    var message = "Repositories you're watching";
+    return (
+      <div>
+        <p>{message}</p>
+        <table id="Watch">
+          <tr>
+            <th>Repository Name</th>
+            <th>Owner's Name</th>
+            <th>Link</th>
+            <th>Stars</th>
+          </tr>
+        </table>
+      </div>
+    )
   }
 }
 
