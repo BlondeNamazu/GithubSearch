@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'flux';
+import 'events';
+import 'object-assign';
 
 class App extends Component {
   render() {
