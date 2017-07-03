@@ -63,7 +63,7 @@ class App extends Component {
   }
   render () {
     return (
-      <div>
+      <div id="root">
         <div id="formParent">
           <div id="form">
             <TestForm />
@@ -138,7 +138,7 @@ class ResultDisplay extends Component {
     this.resetState = this.resetState.bind(this);
   }
   render () {
-    var message = this.state.numOfResult?(this.state.numOfResult==0?"No repository found...":this.state.numOfResult+" repository found!"):"Input keyword and click \"Search\"";
+    var message = this.state.numOfResult?(this.state.numOfResult==0?"No repository found...":this.state.numOfResult+" repositories found!"):"Input keyword and click \"Search\"";
     var list = [];
     for(var i in this.state.repositories){
       if(!this.state.repositories[i]) break;
@@ -156,7 +156,7 @@ class ResultDisplay extends Component {
         <p>{message}</p>
         <table id="Results">
           <thead>
-            <tr>
+            <tr class="tableChildren">
               <th>Repository Name</th>
               <th>Owner's Name</th>
               <th>Link</th>
@@ -224,7 +224,7 @@ class WatchDisplay extends Component {
     for(var i in this.state.repositories){
       if(!this.state.repositories[i]) break;
       list.push(
-        <tr className="tableChildren">
+        <tr class="tableChildren">
           <td>{this.state.repositories[i].name}</td>
           <td>{this.state.repositories[i].owner.login}</td>
           <td><a href={this.state.repositories[i].html_url}>Link</a></td>
