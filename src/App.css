@@ -1,28 +1,49 @@
 .App {
   text-align: center;
 }
+div#root {
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  text-align: center;
+}
+div#parent {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  text-align: center;
+  height: 600px;
+  width: 1100px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 0px;
+}
 
 div#rightChild {
   display: inline-block;
 }
 div#leftChild {
   display: inline-block;
-  /*overflow: scroll;*/
-}
-div#form {
-  display: inline-block;
 }
 div#formParent {
   display: -webkit-flex;
   display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
   -webkit-align-items: stretch;
   align-items: stretch;
   text-align: center;
-  height: 50px;
-  width: 700px;
+  height: 80px;
+  width: 1100px;
   margin: 20px;
+  margin-bottom: 0px;
+}
+div#form {
+  display: inline-block;
 }
 
 tr {
@@ -36,17 +57,6 @@ td {
   overflow: hidden;
 }
 
-div#parent {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-align-items: stretch;
-  align-items: stretch;
-  text-align: center;
-  height: 600px;
-  margin: 20px;
-}
 
 .ResultDisplay {
   margin: 10px;

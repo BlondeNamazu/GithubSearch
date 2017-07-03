@@ -63,7 +63,7 @@ class App extends Component {
   }
   render () {
     return (
-      <div>
+      <div id="root">
         <div id="formParent">
           <div id="form">
             <TestForm />
