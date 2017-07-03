@@ -27,6 +27,8 @@
 watchしているrepository表示のクラスです。
 watchしているrepositoryのテーブルはこのクラスのパーツです。
 ## デモ
+このリポジトリをクローンして、リポジトリのルートで`npm start`すると起動できます。
+![demo](./GithubSearchDemo.gif)
 
 ## 工夫点等
 Webアプリの開発経験のない私にとって今回の課題はやや難しく感じました。
