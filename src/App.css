@@ -7,6 +7,7 @@ div#rightChild {
 }
 div#leftChild {
   display: inline-block;
+  /*overflow: scroll;*/
 }
 div#form {
   display: inline-block;
@@ -24,6 +25,17 @@ div#formParent {
   margin: 20px;
 }
 
+tr {
+  margin-top: 2px;
+  border: 1px solid #FF345E;
+  text-align: left;
+}
+
+td {
+  max-width: 150px;
+  overflow: hidden;
+}
+
 div#parent {
   display: -webkit-flex;
   display: flex;
@@ -32,8 +44,7 @@ div#parent {
   -webkit-align-items: stretch;
   align-items: stretch;
   text-align: center;
-  height: 150px;
-  padding: 10px;
+  height: 600px;
   margin: 20px;
 }
 
@@ -59,6 +70,10 @@ table {
   margin: 10px;
   border: 3px solid #FF345E;
   width: 500px;
+}
+
+#Results {
+  height:30px;
 }
 
 th {
