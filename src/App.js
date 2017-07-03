@@ -91,27 +91,31 @@ class TestForm extends Component {
     // TestAction.test(testValue);
     // console.log(testValue);
     var url = "https://api.github.com/search/repositories?q=" + testValue;
-    var data = this.getJson(url);
+    var page=0;
+    var data;
+    resultDisplay.resetState();
+    for(var i=0;i<10;i++) {
+      data = this.getJson(i+1,url);
+    }
     ReactDOM.findDOMNode(this.refs.text_value).value = "";
     return;
   }
-  getJson (url) {
+  getJson (page,url) {
     var xmlhttp = new XMLHttpRequest();
     var data;
      xmlhttp.onreadystatechange = function () {
        if (xmlhttp.readyState == 4) {
          if (xmlhttp.status == 200) {
            data = JSON.parse(xmlhttp.responseText);
-           alert(data.total_count);
-           resultDisplay.updateState(data.total_count,data.items);
+           resultDisplay.updateState(page==1,data.total_count,data.items);
            return data;
          } else {
          }
        }
      }
-     xmlhttp.open("GET", url,true);
+     xmlhttp.open("GET", url+"&page="+page+"&per_page=100",true);
+    //  xmlhttp.open("GET","curl -v -H \"Authorization: token "+TOKEN+"\" "+url+"page="+page+"&per_page=100");
      xmlhttp.send();
-     
   }
   render () {
     return (
@@ -131,13 +135,14 @@ class ResultDisplay extends Component {
       repositories: [] //jsonData.items
     };
     this.updateState = this.updateState.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
   render () {
     var message = this.state.numOfResult?(this.state.numOfResult==0?"No repository found...":this.state.numOfResult+" repository found!"):"Input keyword and click \"Search\"";
     var list = [];
     for(var i in this.state.repositories){
       list.push(
-        <tr class="tableChildren">
+        <tr className="tableChildren">
           <td>{this.state.repositories[i].name}</td>
           <td>{this.state.repositories[i].owner.login}</td>
           <td><a href={this.state.repositories[i].html_url}>Link</a></td>
@@ -164,10 +169,18 @@ class ResultDisplay extends Component {
       </div>
     );
   }
-  updateState (numOfResult,items) {
+  resetState() {
+    this.setState({
+      numOfResult:0,
+      repositories:[]
+    });
+    resultDisplay = this;
+  }
+  updateState (isFirst,numOfResult,items) {
+    const newrepo = this.state.repositories.concat(items);
     this.setState({
       numOfResult:numOfResult,
-      repositories:items
+      repositories:newrepo
     });
   }
 }
