@@ -22,7 +22,6 @@ div#parent {
   margin-right: 20px;
   margin-top: 0px;
 }
-
 div#rightChild {
   display: inline-block;
 }
@@ -45,30 +44,19 @@ div#formParent {
 div#form {
   display: inline-block;
 }
-
-tr {
-  margin-top: 2px;
-  border: 1px solid #FF345E;
-  text-align: left;
-}
-
-td {
-  max-width: 150px;
-  overflow: hidden;
-}
-
-
 .ResultDisplay {
   margin: 10px;
 }
-
+#Results {
+  height:30px;
+}
 form {
   margin: 10px;
 }
-
 form input {
   width:300px;
   height:30px;
+  font-size: 20px;
   margin-right: 5px;
 }
 form button {
@@ -77,24 +65,25 @@ form button {
   text-align: center;
 }
 table {
+  text-align: left;
+  background-color: #EE6666;
   margin: 10px;
   border: 3px solid #FF345E;
   width: 500px;
 }
-
-#Results {
-  height:30px;
+tr.tableChildren {
+  border: 1px solid #000000;
+  margin: 1px;
 }
-
+td,th {
+  background-color: #FFEEEE;
+  max-width: 150px;
+  padding-left: 3px;
+  overflow: hidden;
+}
 th {
   color: #5511FF;
 }
-
 p {
   margin:10px;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
