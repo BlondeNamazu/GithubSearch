@@ -141,6 +141,7 @@ class ResultDisplay extends Component {
     var message = this.state.numOfResult?(this.state.numOfResult==0?"No repository found...":this.state.numOfResult+" repository found!"):"Input keyword and click \"Search\"";
     var list = [];
     for(var i in this.state.repositories){
+      if(!this.state.repositories[i]) break;
       list.push(
         <tr className="tableChildren">
           <td>{this.state.repositories[i].name}</td>
@@ -188,22 +189,46 @@ class ResultDisplay extends Component {
 class WatchDisplay extends Component {
   constructor () {
     super();
+    // var data = this.getJson(1,"https://api.github.com/user/subscriptions");
     this.state = {
       numOfResult:null,
       repositories:[] //jsonData.items
     };
     this.updateState = this.updateState.bind(this);
+    // this.getJson = this.getJson.bind(this);
+    this.getJson(1,"https://api.github.com/users/BlondeNamazu/subscriptions");
+  }
+  getJson (page,url) {
+    var xmlhttp = new XMLHttpRequest();
+    var data;
+    var self = this;
+     xmlhttp.onreadystatechange = function () {
+       if (xmlhttp.readyState == 4) {
+         if (xmlhttp.status == 200) {
+           data = JSON.parse(xmlhttp.responseText);
+          //  return data;
+         } else {
+         }
+       }
+     }
+     xmlhttp.open("GET", url, true);
+     xmlhttp.onload = function (e){
+       self.updateState(100,data);  
+     }
+    //  xmlhttp.open("GET","curl -v -H \"Authorization: token "+TOKEN+"\" "+url+"page="+page+"&per_page=100");
+     xmlhttp.send();
   }
   render () {
     var message = "Repositories you're watching";
     var list = [];
     for(var i in this.state.repositories){
+      if(!this.state.repositories[i]) break;
       list.push(
-        <tr>
-          <td>{i.name}</td>
-          <td>{i.owner.login}</td>
-          <td><a href={i.html_url}>Link</a></td>
-          <td>{i.stargazers_count}</td>
+        <tr className="tableChildren">
+          <td>{this.state.repositories[i].name}</td>
+          <td>{this.state.repositories[i].owner.login}</td>
+          <td><a href={this.state.repositories[i].html_url}>Link</a></td>
+          <td>{this.state.repositories[i].stargazers_count}</td>
         </tr>
       );
     }
@@ -227,7 +252,10 @@ class WatchDisplay extends Component {
     )
   }
   updateState (numOfResult,items) {
-    this.setState(numOfResult,items);
+    this.setState({
+      numOfResult:numOfResult,
+      repositories:items
+    });
   }
 }
 
